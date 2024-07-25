@@ -56,7 +56,7 @@ public partial class Player : Godot.CharacterBody2D
 
 	private void Shoot()
 	{
-		var fireBall = ResourceLoader.Load<PackedScene>("res://entityscenes/fireball.tscn").Instantiate<Node2D>();
+		var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Node2D>();
 		// Adds fireball as child of root (the level)
 		GetTree().Root.AddChild(fireBall);
 		var hand = GetNode<Marker2D>("Hand");

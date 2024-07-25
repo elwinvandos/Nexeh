@@ -1,8 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://c8toake741c26"]
 
 [ext_resource type="Texture2D" uid="uid://cs0y72l44qt1s" path="res://assets/Fx/Rocket Fire 2-Sheet.png" id="1_fvqge"]
-[ext_resource type="Script" path="res://entityscenes/Fireball.cs" id="1_k5esw"]
-[ext_resource type="Script" path="res://entityscenes/FireballSprite2D.cs" id="2_i6pd0"]
+[ext_resource type="Script" path="res://entities/spells/Fireball.cs" id="1_k5esw"]
+[ext_resource type="Script" path="res://entities/spells/FireballSprite2D.cs" id="2_i6pd0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ux0mc"]
 atlas = ExtResource("1_fvqge")
