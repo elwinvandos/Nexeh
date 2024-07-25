@@ -4,14 +4,25 @@ using System;
 public partial class Player : Godot.CharacterBody2D
 {
 	[Signal]
+	public delegate void PlayerPositionEventHandler(Vector2 position);
+
+	[Signal]
 	public delegate void HealthDepletedEventHandler(int oldValue, int newValue);
 
 	private float _speed = 5f;
 	private int _health = 100;
 
+	public override void _Ready()
+	{
+		// Necessary so other scenes can find player
+		AddToGroup("Player");
+	}
+
 	// PhysicsProcess is a version of _Process that offers built-in gravity and collision methods
 	public override void _PhysicsProcess(double delta)
 	{
+		EmitSignal(SignalName.PlayerPosition, Position);
+
 		var velocity = Velocity;
 		velocity.Y += (float)delta;
 		velocity.X += (float)delta;
@@ -43,6 +54,7 @@ public partial class Player : Godot.CharacterBody2D
 
 		base._Process(delta);
 	}
+
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton eventMouseButton)

@@ -1,6 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://cxk2btkd1sarp"]
+[gd_scene load_steps=42 format=3 uid="uid://cxk2btkd1sarp"]
 
 [ext_resource type="Texture2D" uid="uid://dfeoui1rt8j6d" path="res://assets/NPCs/green_demon.png" id="1_dlqie"]
+[ext_resource type="Script" path="res://entities/enemies/green_demon/GreenDemon.cs" id="1_ehpix"]
+[ext_resource type="Script" path="res://entities/enemies/green_demon/GreenDemonSprite2D.cs" id="3_22y5j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wjb8p"]
 atlas = ExtResource("1_dlqie")
@@ -280,16 +282,17 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mju0"]
 size = Vector2(43, 50)
 
-[node name="GreenDemon" type="RigidBody2D"]
-collision_mask = 0
-gravity_scale = 0.0
+[node name="GreenDemon" type="CharacterBody2D"]
+script = ExtResource("1_ehpix")
 
 [node name="GreenDemonSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6d10w")
-animation = &"walk_right"
-frame_progress = 0.792671
+animation = &"walk_down"
+script = ExtResource("3_22y5j")
 
 [node name="GreenDemonCollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2mju0")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DemonNavAgent" type="NavigationAgent2D" parent="."]

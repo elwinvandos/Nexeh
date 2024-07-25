@@ -1,39 +1,27 @@
 using Godot;
+using GungeonClone.entities;
 
 //Maybe rename this, basically this class governs animation state of player
-public partial class PlayerSprite2D : Godot.AnimatedSprite2D
+public partial class PlayerSprite2D : AnimatedEntity
 {
-	private Node2D _player = new();
+	private CharacterBody2D _player = new();
 	private Vector2 _mousePosition = new();
 
 	public override void _Ready()
 	{
-		// seems hacky, is this the way to do this?
-		_player = GetTree().GetNodesInGroup("CharacterBody2D")[0] as Node2D;
+		_player = GetParent() as CharacterBody2D;
 	}
 
 	public override void _Process(double delta)
 	{
 		_mousePosition = GetLocalMousePosition().Normalized();
 
-		if (Input.IsActionPressed("ui_left"))
-		{
-			Play("walk_left");
-		}
-		else if (Input.IsActionPressed("ui_right"))
-		{
-			Play("walk_right");
-		}
-		else if (Input.IsActionPressed("ui_down"))
-		{
-			Play("walk_down");
-		}
-		else if (Input.IsActionPressed("ui_up"))
-		{
-			Play("walk_up");
-		}
-		else
-		{
+        if (_player.Velocity.Length() > 0.0)
+        {
+            AnimateWalking(_player.Velocity);
+        }
+        else
+        {
             if (_mousePosition.X > _player.Position.X && _mousePosition.Y > _player.Position.Y)
             {
                 Play("idle_down");
@@ -51,7 +39,7 @@ public partial class PlayerSprite2D : Godot.AnimatedSprite2D
                 Play("idle_up");
             }
         }
-	}
+    }
 
 	public override void _Input(InputEvent @event)
 	{
