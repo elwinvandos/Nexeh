@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GungeonClone", "GungeonClone.csproj", "{34A0E161-BF11-4B79-BD33-C876F8958EA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexeh", "Nexeh.csproj", "{34A0E161-BF11-4B79-BD33-C876F8958EA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

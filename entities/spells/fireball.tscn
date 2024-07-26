@@ -130,7 +130,6 @@ height = 36.0
 script = ExtResource("1_k5esw")
 
 [node name="FireballSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(21.3079, -21.3078)
 rotation = 1.5708
 scale = Vector2(0.730772, 0.730772)
 sprite_frames = SubResource("SpriteFrames_a1740")
@@ -138,6 +137,6 @@ animation = &"burning"
 script = ExtResource("2_i6pd0")
 
 [node name="FireballCollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(11, -27)
+position = Vector2(-11, -6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_mo38t")
