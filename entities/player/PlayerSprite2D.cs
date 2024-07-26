@@ -1,8 +1,7 @@
 using Godot;
 using GungeonClone.entities;
 
-//Maybe rename this, basically this class governs animation state of player
-public partial class PlayerSprite2D : AnimatedEntity
+public partial class PlayerSprite2D : AnimatedEntitySprite
 {
 	private CharacterBody2D _player = new();
 	private Vector2 _mousePosition = new();

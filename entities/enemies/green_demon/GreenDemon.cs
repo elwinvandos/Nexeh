@@ -1,7 +1,8 @@
 using Godot;
+using Nexeh.entities;
 using System.Linq;
 
-public partial class GreenDemon : CharacterBody2D
+public partial class GreenDemon : LivingEntity
 {
 	private float _speed = 150f;
 	private NavigationAgent2D _navigationAgent;
@@ -13,6 +14,8 @@ public partial class GreenDemon : CharacterBody2D
 		get { return _navigationAgent.TargetPosition; }
 		set { _navigationAgent.TargetPosition = value; }
 	}
+
+	public override int Health { get; set; } = 100;
 
 	public override void _Ready()
 	{
@@ -46,8 +49,22 @@ public partial class GreenDemon : CharacterBody2D
 		Vector2 currentAgentPosition = GlobalTransform.Origin;
 		//Vector2 nextPathPosition = _navigationAgent.GetNextPathPosition();
 
-		Velocity = currentAgentPosition.DirectionTo(_movementTargetPosition) * _speed;
-		MoveAndSlide();
+		if (Health <= 0)
+		{
+			Velocity = new Vector2(0, 0);
+		}
+		else
+		{
+			Velocity = currentAgentPosition.DirectionTo(_movementTargetPosition) * _speed;
+			MoveAndSlide();
+		}
+
+		//var collision = MoveAndCollide(Velocity);
+
+		//if (collision != null)
+		//{
+		//	Velocity = Velocity.Bounce(collision.GetNormal());
+		//}
 	}
 
 	private async void ActorSetup()

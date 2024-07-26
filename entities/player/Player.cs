@@ -1,16 +1,14 @@
 using Godot;
-using System;
+using Nexeh.entities;
 
-public partial class Player : Godot.CharacterBody2D
+public partial class Player : LivingEntity
 {
 	[Signal]
 	public delegate void PlayerPositionEventHandler(Vector2 position);
 
-	[Signal]
-	public delegate void HealthDepletedEventHandler(int oldValue, int newValue);
+	private float _speed = 7.5f;
 
-	private float _speed = 5f;
-	private int _health = 100;
+	public override int Health { get; set; } = 100;
 
 	public override void _Ready()
 	{
@@ -18,7 +16,6 @@ public partial class Player : Godot.CharacterBody2D
 		AddToGroup("Player");
 	}
 
-	// PhysicsProcess is a version of _Process that offers built-in gravity and collision methods
 	public override void _PhysicsProcess(double delta)
 	{
 		EmitSignal(SignalName.PlayerPosition, Position);
@@ -68,21 +65,11 @@ public partial class Player : Godot.CharacterBody2D
 
 	private void Shoot()
 	{
-		var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Node2D>();
+		var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Fireball>();
 		// Adds fireball as child of root (the level)
 		GetTree().Root.AddChild(fireBall);
 		var hand = GetNode<Marker2D>("Hand");
+		fireBall.Velocity = hand.GlobalTransform.Origin.DirectionTo(GetGlobalMousePosition()) * fireBall.Speed;
 		fireBall.Transform = hand.GlobalTransform;
-	}
-
-	public void TakeDamage(int amount)
-	{
-		int oldHealth = _health;
-		_health -= amount;
-
-		if (_health <= 0)
-		{
-			EmitSignal(SignalName.HealthDepleted, oldHealth, _health);
-		}
 	}
 }

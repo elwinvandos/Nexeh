@@ -1,18 +1,26 @@
 using Godot;
 using GungeonClone.entities;
+using Nexeh.entities;
 
-public partial class GreenDemonSprite2D : AnimatedEntity
+public partial class GreenDemonSprite2D : AnimatedEntitySprite
 {
-	private CharacterBody2D _entity = new();
+	private LivingEntity _entity;
 
 	public override void _Ready()
 	{
-		_entity = GetParent() as CharacterBody2D;
+		_entity = GetParent() as LivingEntity;
 	}
 
 	public override void _Process(double delta)
 	{
-		AnimateWalking(_entity.Velocity);
+		if (_entity.Health <= 0)
+		{
+			AnimateDeath();
+		}
+		else
+		{
+			AnimateWalking(_entity.Velocity);
+		}
 
 		base._Process(delta);
 	}

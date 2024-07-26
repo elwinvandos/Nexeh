@@ -3,7 +3,7 @@ using System;
 
 namespace GungeonClone.entities
 {
-    public abstract partial class AnimatedEntity : AnimatedSprite2D
+    public abstract partial class AnimatedEntitySprite : AnimatedSprite2D
     {
         public void AnimateWalking(Vector2 velocity)
         {
@@ -25,6 +25,16 @@ namespace GungeonClone.entities
             {
                 Play("walk_up");
             }
+        }
+
+        public void AnimateDeath()
+        {
+            Play("death");
+
+            AnimationFinished += () =>
+            {
+                SetFrameAndProgress(6, 0);
+            };
         }
     }
 }

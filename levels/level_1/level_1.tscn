@@ -31,7 +31,7 @@ script = ExtResource("6_a1vpb")
 navigation_polygon = SubResource("NavigationPolygon_2nylu")
 
 [node name="Spawn1" type="Marker2D" parent="."]
-position = Vector2(1323, 360)
+position = Vector2(1831, 385)
 
 [node name="Spawn2" type="Marker2D" parent="."]
 position = Vector2(1152, 1036)
