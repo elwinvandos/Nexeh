@@ -3,7 +3,9 @@ using System;
 
 namespace GungeonClone.entities
 {
-    public abstract partial class AnimatedEntitySprite : AnimatedSprite2D
+    // Should be abstract but see issue:
+    // https://github.com/godotengine/godot/issues/79519
+    public partial class AnimatedEntitySprite : AnimatedSprite2D
     {
         public void AnimateWalking(Vector2 velocity)
         {

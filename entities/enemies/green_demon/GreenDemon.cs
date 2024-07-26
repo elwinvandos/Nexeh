@@ -1,6 +1,7 @@
 using Godot;
 using Nexeh.entities;
 using System.Linq;
+using System.Threading;
 
 public partial class GreenDemon : LivingEntity
 {
@@ -8,6 +9,7 @@ public partial class GreenDemon : LivingEntity
 	private NavigationAgent2D _navigationAgent;
 	private Vector2 _movementTargetPosition;
 	private Player _player;
+	private CollisionShape2D _collisionShape;
 
 	public Vector2 MovementTarget
 	{
@@ -19,6 +21,8 @@ public partial class GreenDemon : LivingEntity
 
 	public override void _Ready()
 	{
+		_collisionShape = GetNode("GreenDemonCollisionShape2D") as CollisionShape2D;
+
 		AddToGroup("GreenDemon");
 
 		_player = GetTree().GetNodesInGroup("Player").First() as Player;
@@ -52,6 +56,8 @@ public partial class GreenDemon : LivingEntity
 		if (Health <= 0)
 		{
 			Velocity = new Vector2(0, 0);
+			SetPhysicsProcess(false);
+			_collisionShape.Disabled = true;
 		}
 		else
 		{
