@@ -7,6 +7,10 @@ namespace GungeonClone.entities
     // https://github.com/godotengine/godot/issues/79519
     public partial class AnimatedEntitySprite : AnimatedSprite2D
     {
+        [Signal] public delegate void OnAnimationFinishedCallEventHandler(AnimatedSprite2D sprite);
+
+        private bool _hasDied = false;
+
         public void AnimateWalking(Vector2 velocity)
         {
             var angle = Math.Atan2(velocity.Y, velocity.X);
@@ -31,12 +35,26 @@ namespace GungeonClone.entities
 
         public void AnimateDeath()
         {
-            Play("death");
-
-            AnimationFinished += () =>
+            if (!_hasDied)
             {
-                SetFrameAndProgress(6, 0);
-            };
+                _hasDied = true;
+
+                Play("death");
+
+                AnimationFinished += () =>
+                {
+                    SetFrameAndProgress(6, 0);
+                };
+            }
         }
+
+        public override void _ExitTree()
+        {
+            AnimationFinished -= OnAnimationFinished;
+
+            base._ExitTree();
+        }
+
+        private void OnAnimationFinished() => EmitSignal(SignalName.OnAnimationFinishedCall, this);
     }
 }
