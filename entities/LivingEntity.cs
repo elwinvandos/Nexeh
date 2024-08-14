@@ -5,10 +5,7 @@ namespace Nexeh.entities
     public abstract partial class LivingEntity : CharacterBody2D
     {
         [Signal]
-        public delegate void HitEventHandler();
-
-        [Signal]
-        public delegate void HealthDepletedEventHandler(int oldValue, int newValue);
+        public delegate void DamageTakenEventHandler(int oldValue, int newValue);
 
         public abstract int Health { get; set; }
 
@@ -17,10 +14,7 @@ namespace Nexeh.entities
             int oldHealth = Health;
             Health -= amount;
 
-            if (Health <= 0)
-            {
-                EmitSignal(SignalName.HealthDepleted, oldHealth, Health);
-            }
+            EmitSignal(SignalName.DamageTaken, oldHealth, Health);
         }
     }
 }

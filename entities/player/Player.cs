@@ -1,5 +1,6 @@
 using Godot;
 using Nexeh.entities;
+using System.Linq;
 
 public partial class Player : LivingEntity
 {
@@ -7,6 +8,7 @@ public partial class Player : LivingEntity
 	public delegate void PlayerPositionEventHandler(Vector2 position);
 
 	private float _speed = 7.5f;
+	private Hud _hud;
 
 	public override int Health { get; set; } = 100;
 
@@ -14,6 +16,9 @@ public partial class Player : LivingEntity
 	{
 		// Necessary so other scenes can find player
 		AddToGroup("Player");
+
+		_hud = GetTree().GetNodesInGroup("HUD").First() as Hud;
+		_hud.UpdatePlayerHealth(Health);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -62,8 +67,13 @@ public partial class Player : LivingEntity
 		base._Input(@event);
 	}
 
+    public override void TakeDamage(int amount)
+    {
+        base.TakeDamage(amount);
+		_hud.UpdatePlayerHealth(Health);
+    }
 
-	private void Shoot()
+    private void Shoot()
 	{
 		var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Fireball>();
 		// Adds fireball as child of root (the level)

@@ -12,6 +12,9 @@ public partial class Level1 : Node2D
 
 	public override void _Ready()
 	{
+		var hud = ResourceLoader.Load<PackedScene>("res://ui/hud.tscn").Instantiate<CanvasLayer>();
+		AddChild(hud);
+
 		var player = ResourceLoader.Load<PackedScene>("res://entities/player/player.tscn").Instantiate<CharacterBody2D>();
 		player.Position = _startingPosition;
 

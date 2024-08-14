@@ -27,13 +27,11 @@ public partial class Fireball : CharacterBody2D
 
 			if (collider is Player)
 			{
-				GD.Print("Player hit");
 				// Don't hit ourselves (for now)
 				break;
 			}
 			else if (collider is GreenDemon enemy)
 			{
-				GD.Print("Enemy hit");
 				enemy.TakeDamage(50);
 				QueueFree();
 				break;

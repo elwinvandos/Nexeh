@@ -62,7 +62,30 @@ public partial class GreenDemon : LivingEntity
 		else
 		{
 			Velocity = currentAgentPosition.DirectionTo(_movementTargetPosition) * _speed;
-			MoveAndSlide();
+			//MoveAndSlide();
+
+			var collision = MoveAndCollide(Velocity * (float)delta);
+
+			while (collision is not null)
+			{
+				var collider = collision.GetCollider();
+
+				if (collider is Player player)
+				{
+					player.TakeDamage(20);
+
+					// todo: Bounce away enemy
+				}
+
+				var normal = collision.GetNormal();
+				var remainder = collision.GetRemainder();
+
+				Velocity = Velocity.Bounce(normal);
+				remainder = remainder.Bounce(normal);
+
+				collision = MoveAndCollide(remainder);
+			}
+
 		}
 
 		//var collision = MoveAndCollide(Velocity);

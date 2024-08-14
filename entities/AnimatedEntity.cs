@@ -1,4 +1,5 @@
 ﻿using Godot;
+using Nexeh.entities;
 using System;
 
 namespace GungeonClone.entities
@@ -10,6 +11,13 @@ namespace GungeonClone.entities
         [Signal] public delegate void OnAnimationFinishedCallEventHandler(AnimatedSprite2D sprite);
 
         private bool _hasDied = false;
+
+        public LivingEntity _entity;
+
+        public override void _Ready()
+        {
+            _entity = GetParent() as LivingEntity;
+        }
 
         public void AnimateWalking(Vector2 velocity)
         {

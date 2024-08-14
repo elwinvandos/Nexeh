@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn8307qbnnwmd"]
+
+[ext_resource type="Script" path="res://ui/Hud.cs" id="1_1p2do"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_1p2do")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 11.0
+offset_top = 7.0
+offset_right = 76.0
+offset_bottom = 30.0
+text = "Health:  "
