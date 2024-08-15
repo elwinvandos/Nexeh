@@ -19,6 +19,8 @@ public partial class Player : LivingEntity
 
 		_hud = GetTree().GetNodesInGroup("HUD").First() as Hud;
 		_hud.UpdatePlayerHealth(Health);
+
+		base._Ready();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -54,17 +56,12 @@ public partial class Player : LivingEntity
 
 		MoveAndCollide(Velocity);
 
-		base._Process(delta);
-	}
+        if (Input.IsActionJustPressed("mouse_click_left"))
+        {
+            Shoot();
+        }
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton eventMouseButton)
-		{
-			Shoot();
-		}
-
-		base._Input(@event);
+        base._Process(delta);
 	}
 
     public override void TakeDamage(int amount)

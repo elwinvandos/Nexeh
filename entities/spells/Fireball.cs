@@ -32,7 +32,7 @@ public partial class Fireball : CharacterBody2D
 			}
 			else if (collider is GreenDemon enemy)
 			{
-				enemy.TakeDamage(50);
+				enemy.TakeDamage(25);
 				QueueFree();
 				break;
 			}

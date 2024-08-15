@@ -42,12 +42,12 @@ public partial class GreenDemon : LivingEntity
 	{
 		base._PhysicsProcess(delta);
 
-		//hook into player position signal
+		// hook into player position signal
 		_player.PlayerPosition += (playerPos) => _movementTargetPosition = playerPos;
 
 		if (_navigationAgent.IsNavigationFinished())
 		{
-			//attack ?
+			// ?
 		}
 
 		Vector2 currentAgentPosition = GlobalTransform.Origin;
@@ -62,7 +62,6 @@ public partial class GreenDemon : LivingEntity
 		else
 		{
 			Velocity = currentAgentPosition.DirectionTo(_movementTargetPosition) * _speed;
-			//MoveAndSlide();
 
 			var collision = MoveAndCollide(Velocity * (float)delta);
 
@@ -74,7 +73,12 @@ public partial class GreenDemon : LivingEntity
 				{
 					player.TakeDamage(20);
 
-					// todo: Bounce away enemy
+					// we could also get direction manually like this:
+					// var directionToPlayer = player.Position - Position;
+
+					// make the enemy bounce away, currently this looks pretty crappy
+					Velocity = -(currentAgentPosition.DirectionTo(_movementTargetPosition) * _speed * 40);
+					MoveAndSlide();
 				}
 
 				var normal = collision.GetNormal();
@@ -85,15 +89,7 @@ public partial class GreenDemon : LivingEntity
 
 				collision = MoveAndCollide(remainder);
 			}
-
 		}
-
-		//var collision = MoveAndCollide(Velocity);
-
-		//if (collision != null)
-		//{
-		//	Velocity = Velocity.Bounce(collision.GetNormal());
-		//}
 	}
 
 	private async void ActorSetup()
