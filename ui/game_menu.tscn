@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4xeg174bqvn6"]
+
+[ext_resource type="Script" path="res://ui/GameMenu.cs" id="1_s8kuu"]
+
+[node name="GameMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_s8kuu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -87.5
+offset_right = 70.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.207843, 0.211765, 0.211765, 0.623529)
+
+[node name="ResumeButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -72.0
+offset_right = 58.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -31.0
+offset_right = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit game"

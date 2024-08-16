@@ -9,9 +9,14 @@ public partial class Level1 : Node2D
 	private List<GreenDemon> _demons = new();
 	private Marker2D _spawn1;
 	private Marker2D _spawn2;
+	private CanvasLayer _gameMenu;
 
 	public override void _Ready()
 	{
+		_gameMenu = ResourceLoader.Load<PackedScene>("res://ui/game_menu.tscn").Instantiate<CanvasLayer>();
+		AddChild(_gameMenu);
+		_gameMenu.Hide();
+
 		var hud = ResourceLoader.Load<PackedScene>("res://ui/hud.tscn").Instantiate<CanvasLayer>();
 		AddChild(hud);
 
@@ -63,6 +68,12 @@ public partial class Level1 : Node2D
 			}
 			_demons.Add(newDemon);
 			AddChild(newDemon);
+		}
+
+		if (Input.IsActionJustPressed("ui_cancel"))
+		{
+			_gameMenu.Show();
+			GetTree().Paused = true;
 		}
 
 		base._Process(delta);
