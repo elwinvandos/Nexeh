@@ -682,3 +682,5 @@ shape = SubResource("RectangleShape2D_a5r7s")
 
 [node name="Hand" type="Marker2D" parent="."]
 script = ExtResource("4_0sdpo")
+
+[node name="Camera2D" type="Camera2D" parent="."]

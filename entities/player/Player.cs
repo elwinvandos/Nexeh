@@ -56,21 +56,21 @@ public partial class Player : LivingEntity
 
 		MoveAndCollide(Velocity);
 
-        if (Input.IsActionJustPressed("mouse_click_left"))
-        {
-            Shoot();
-        }
+		if (Input.IsActionJustPressed("mouse_click_left"))
+		{
+			Shoot();
+		}
 
-        base._Process(delta);
+		base._Process(delta);
 	}
 
-    public override void TakeDamage(int amount)
-    {
-        base.TakeDamage(amount);
+	public override void TakeDamage(int amount)
+	{
+		base.TakeDamage(amount);
 		_hud.UpdatePlayerHealth(Health);
-    }
+	}
 
-    private void Shoot()
+	private void Shoot()
 	{
 		var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Fireball>();
 		// Adds fireball as child of root (the level)
