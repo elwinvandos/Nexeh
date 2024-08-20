@@ -1,14 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://r870kmvofsar"]
+[gd_scene load_steps=4 format=3 uid="uid://r870kmvofsar"]
 
 [ext_resource type="Script" path="res://levels/level_1/Level1.cs" id="1_212hh"]
 [ext_resource type="TileSet" uid="uid://dip5t5s85cvto" path="res://levels/tileset.tres" id="5_wl5r4"]
 [ext_resource type="Script" path="res://ui/Cursor.cs" id="6_a1vpb"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_2nylu"]
-vertices = PackedVector2Array(1201, 775, 1205, 1074, 9, 1074, 978, 777, 8, 360, 621, 361, 980, 498, 618, 10, 1911, 11, 1294, 436, 1911, 439, 1294, 498)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5, 6), PackedInt32Array(6, 5, 7, 8, 9), PackedInt32Array(8, 10, 9), PackedInt32Array(6, 9, 11)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-2, 350, 611, 351, 608, 0, 1921, 2, 1921, 450, 1304, 446, 1304, 508, 990, 508, 988, 767, 1211, 765, 1215, 1084, -1, 1084)])
-source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Level 1" type="Node2D"]
 script = ExtResource("1_212hh")
@@ -26,9 +20,6 @@ metadata/_edit_group_ = true
 
 [node name="Cursor" type="Node2D" parent="."]
 script = ExtResource("6_a1vpb")
-
-[node name="Level1NavigationRegion" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_2nylu")
 
 [node name="Spawn1" type="Marker2D" parent="."]
 position = Vector2(1831, 385)
