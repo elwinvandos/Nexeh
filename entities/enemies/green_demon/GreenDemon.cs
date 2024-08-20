@@ -47,7 +47,7 @@ public partial class GreenDemon : LivingEntity
 
 		if (_navigationAgent.IsNavigationFinished())
 		{
-			// ?
+			// Is currently not triggered
 		}
 
 		Vector2 currentAgentPosition = GlobalTransform.Origin;

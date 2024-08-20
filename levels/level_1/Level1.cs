@@ -1,29 +1,19 @@
 using Godot;
+using Nexeh.levels;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
-public partial class Level1 : Node2D
+public partial class Level1 : GameLevel
 {
-	private static readonly Vector2 _startingPosition = new(200, 200);
 	private List<GreenDemon> _demons = new();
 	private Marker2D _spawn1;
 	private Marker2D _spawn2;
-	private CanvasLayer _gameMenu;
+
+	public override Vector2 _startingPosition => new Vector2(200, 200);
 
 	public override void _Ready()
 	{
-		_gameMenu = ResourceLoader.Load<PackedScene>("res://ui/game_menu.tscn").Instantiate<CanvasLayer>();
-		AddChild(_gameMenu);
-		_gameMenu.Hide();
-
-		var hud = ResourceLoader.Load<PackedScene>("res://ui/hud.tscn").Instantiate<CanvasLayer>();
-		AddChild(hud);
-
-		var player = ResourceLoader.Load<PackedScene>("res://entities/player/player.tscn").Instantiate<CharacterBody2D>();
-		player.Position = _startingPosition;
-
-		AddChild(player);
+		base._Ready();
 
 		_spawn1 = GetNode<Marker2D>("Spawn1");
 		_spawn2 = GetNode<Marker2D>("Spawn2");
@@ -68,12 +58,6 @@ public partial class Level1 : Node2D
 			}
 			_demons.Add(newDemon);
 			AddChild(newDemon);
-		}
-
-		if (Input.IsActionJustPressed("ui_cancel"))
-		{
-			_gameMenu.Show();
-			GetTree().Paused = true;
 		}
 
 		base._Process(delta);

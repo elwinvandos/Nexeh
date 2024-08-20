@@ -22,7 +22,7 @@ public partial class MainMenu : CanvasLayer
 
 	private void GenerateLevel()
 	{
-		throw new NotImplementedException();
+		GetTree().ChangeSceneToFile("res://levels/level_random/random_level.tscn");
 	}
 
 	private void Quit()

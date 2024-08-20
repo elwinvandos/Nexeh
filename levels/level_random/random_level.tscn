@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://h8blvdnifi2e"]
+
+[ext_resource type="Script" path="res://levels/level_random/RandomLevel.cs" id="1_7w741"]
+[ext_resource type="TileSet" uid="uid://dip5t5s85cvto" path="res://levels/tileset.tres" id="1_g2h53"]
+
+[node name="RandomLevel" type="Node2D"]
+script = ExtResource("1_7w741")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_g2h53")
+format = 2
+layer_0/name = "Ground level"
+layer_1/name = "Props"
+layer_1/tile_data = PackedInt32Array()
