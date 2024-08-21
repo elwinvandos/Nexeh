@@ -71,25 +71,22 @@ public partial class RandomLevel : GameLevel
 		{
 			for (int y = 0; y < _height; y++)
 			{
-				GenerateBorder(x, y);
-				GeneratePropsAndBuildings(x, y);
+				// Generate border
+				if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
+				{
+					_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PLANT, new Vector2I(1, 6));
+				}
+
+				GeneratePropsAndBuildings(new Vector2I(x, y));
 			}
 		}
 	}
 
-	private void GenerateBorder(int x, int y)
-	{
-		if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
-		{
-			_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PLANT, new Vector2I(1, 6));
-		}
-	}
-
-	private void GeneratePropsAndBuildings(int x, int y, Vector2I? minimumOffset = null)
+	private void GeneratePropsAndBuildings(Vector2I position, Vector2I? minimumOffset = null)
 	{
 		minimumOffset ??= new Vector2I(15, 15);
 
-		if ((x - _lastTilePosition.X) >= minimumOffset.Value.X || (y - _lastTilePosition.Y) >= minimumOffset.Value.Y)
+		if ((position.X - _lastTilePosition.X) >= minimumOffset.Value.X || (position.Y - _lastTilePosition.Y) >= minimumOffset.Value.Y)
 		{
 			var random = new Random();
 			var randomizer = random.Next(0, 300);
@@ -98,11 +95,11 @@ public partial class RandomLevel : GameLevel
 			{
 				if (randomizer < 2)
 				{
-					PaintBuilding2(new Vector2I(x, y));
+					PlaceBuilding(2, position);
 				}
 				else if (randomizer < 5)
 				{
-					PaintBuilding1(new Vector2I(x, y));
+					PlaceBuilding(1, position);
 				}
 				else
 				{
@@ -111,68 +108,56 @@ public partial class RandomLevel : GameLevel
 					if (propRandomizer < 5)
 					{
 						// pillar
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PROPS, new Vector2I(11, 5));
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y + 1), TILESET_PROPS, new Vector2I(11, 6));
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y + 2), TILESET_PROPS, new Vector2I(11, 7));
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(11, 5));
+						position.Y++;
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(11, 6));
+						position.Y++;
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(11, 7));
 					}
 					else if (propRandomizer < 15)
 					{
 						// gravestone
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PROPS, new Vector2I(7, 5));
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y + 1), TILESET_PROPS, new Vector2I(7, 6));
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(7, 5));
+						position.Y++;
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(7, 6));
 					}
 					else if (propRandomizer < 30)
 					{
 						// jug
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PROPS, new Vector2I(5, 6));
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y + 1), TILESET_PROPS, new Vector2I(5, 7));
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(5, 6));
+						position.Y++;
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(5, 7));
 					}
 					else if (propRandomizer < 50)
 					{
-						PaintTree(new Vector2I(x, y));
+						PlaceForest(1, position);
 					}
 					else
 					{
-						_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PROPS, new Vector2I(random.Next(0, 7), 15));
+						// random rock
+						_tileMap.SetCell(LAYER_PROPS, position, TILESET_PROPS, new Vector2I(random.Next(0, 7), 15));
 					}
 				}
 
-				_lastTilePosition.X = x;
-				_lastTilePosition.Y = y;
+				_lastTilePosition.X = position.X;
+				_lastTilePosition.Y = position.Y;
 			}
 		}
 	}
 
-	#region BuildingFactories
-
-
-	private void PaintBuilding1(Vector2I position)
+	private void PlaceBuilding(int buildingId, Vector2I position)
 	{
-		var building1Pattern1 = _tileMap.TileSet.GetPattern(0);
-		var building1Pattern2 = _tileMap.TileSet.GetPattern(1);
-
-		_tileMap.SetPattern(LAYER_TERRAIN, position, building1Pattern1);
-		_tileMap.SetPattern(LAYER_WALLS, position, building1Pattern2);
+		var building = ResourceLoader.Load<PackedScene>($"res://levels/components/buildings/building_{buildingId}.tscn").Instantiate<Node2D>();
+		// We loop using Vector2I coordinates, but to add a scene we need a regular Vector2
+		building.Position = (Vector2)position * 32;
+		AddChild(building);
 	}
 
-	private void PaintBuilding2(Vector2I position)
+	private void PlaceForest(int forestId, Vector2I position)
 	{
-		var building2Pattern1 = _tileMap.TileSet.GetPattern(2);
-		var building2Pattern2 = _tileMap.TileSet.GetPattern(3);
-		var building2Pattern3 = _tileMap.TileSet.GetPattern(4);
-		var building2Pattern4 = _tileMap.TileSet.GetPattern(5);
-
-		_tileMap.SetPattern(LAYER_TERRAIN, position, building2Pattern1);
-		_tileMap.SetPattern(LAYER_WALLS, position, building2Pattern2);
-		_tileMap.SetPattern(LAYER_PROPS, position, building2Pattern3);
-		_tileMap.SetPattern(LAYER_PROPS_2, position, building2Pattern4);
+		var forest = ResourceLoader.Load<PackedScene>($"res://levels/components/forests/forest_{forestId}.tscn").Instantiate<Node2D>();
+		// We loop using Vector2I coordinates, but to add a scene we need a regular Vector2
+		forest.Position = (Vector2)position * 32;
+		AddChild(forest);
 	}
-
-	private void PaintTree(Vector2I position)
-	{
-		var treePattern = _tileMap.TileSet.GetPattern(6);
-		_tileMap.SetPattern(LAYER_PROPS, position, treePattern);
-	}
-
-	#endregion
 }
