@@ -664,7 +664,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a5r7s"]
-size = Vector2(42, 60.25)
+size = Vector2(42, 24)
 
 [node name="Player" type="CharacterBody2D"]
 top_level = true
@@ -677,7 +677,7 @@ animation = &"cast_spell_up"
 script = ExtResource("3_xvbfc")
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.875)
+position = Vector2(0, 19)
 shape = SubResource("RectangleShape2D_a5r7s")
 
 [node name="Hand" type="Marker2D" parent="."]

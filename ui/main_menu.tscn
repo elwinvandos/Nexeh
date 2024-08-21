@@ -6,45 +6,71 @@
 process_mode = 3
 script = ExtResource("1_4xg1d")
 
-[node name="StartNewGameButton" type="Button" parent="."]
+[node name="PlayLevel2Button" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 30)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -77.0
-offset_top = -25.0
-offset_right = 77.0
-offset_bottom = 25.0
+offset_left = -104.0
+offset_top = -116.0
+offset_right = 96.0
+offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Play Demo"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play Demo 2"
 
 [node name="QuitToDesktopButton" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 30)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -78.0
-offset_top = 89.0
-offset_right = 76.0
-offset_bottom = 139.0
+offset_left = -104.0
+offset_top = -36.0
+offset_right = 96.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Quit
 "
 
 [node name="GenerateLevelButton" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 30)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -78.0
-offset_top = 33.0
-offset_right = 76.0
-offset_bottom = 83.0
+offset_left = -104.0
+offset_top = -76.0
+offset_right = 96.0
+offset_bottom = -44.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Generate Level"
+
+[node name="PlayLevel1Button" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 30)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -156.0
+offset_right = 96.0
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play Demo 1"

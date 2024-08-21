@@ -2,6 +2,7 @@ using Godot;
 using Nexeh.levels;
 using System;
 
+// I should probably start over and try to generate more focused levels with open background (add some kind of skybox later?)
 public partial class RandomLevel : GameLevel
 {
 	private TileMap _tileMap;
