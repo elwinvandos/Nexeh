@@ -7,6 +7,7 @@ public partial class RandomLevel : GameLevel
 {
 	private TileMap _tileMap;
 	private Vector2I _lastTilePosition = new Vector2I(0, 0);
+	private Vector2I _lastBorderPosition = new Vector2I(-25, -25);
 
 	// Formula: divide intended aspect ratio by tile size multiplied by camera zoom.
 	// Then multiply by how big you want to scale the level
@@ -29,7 +30,7 @@ public partial class RandomLevel : GameLevel
 	private const int LAYER_PROPS = 2;
 	private const int LAYER_PROPS_2 = 3;
 
-	public override Vector2 _startingPosition => new Vector2(200, 200);
+	public override Vector2 _startingPosition => new Vector2(500, 500);
 
 	public override void _Ready()
 	{
@@ -74,8 +75,20 @@ public partial class RandomLevel : GameLevel
 				// Generate border
 				if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
 				{
-					_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PLANT, new Vector2I(1, 6));
-				}
+					//_tileMap.SetCell(LAYER_PROPS, new Vector2I(x, y), TILESET_PLANT, new Vector2I(1, 6));
+
+					if ((x - _lastBorderPosition.X) >= 10)
+					{
+						PlaceForest(1, new Vector2I(x, y));
+						_lastBorderPosition = new Vector2I(x, y);
+					}
+
+					if((y - _lastBorderPosition.Y) >= 5)
+					{
+						PlaceForest(2, new Vector2I(x, y));
+						_lastBorderPosition = new Vector2I(x, y);
+					}
+	}
 
 				GeneratePropsAndBuildings(new Vector2I(x, y));
 			}
@@ -130,7 +143,7 @@ public partial class RandomLevel : GameLevel
 					}
 					else if (propRandomizer < 50)
 					{
-						PlaceForest(1, position);
+						//PlaceForest(1, position);
 					}
 					else
 					{
