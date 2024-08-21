@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cry2sawxteb6i"]
+
+[ext_resource type="TileSet" uid="uid://dip5t5s85cvto" path="res://levels/tileset.tres" id="1_lw2ty"]
+
+[node name="Building1" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_lw2ty")
+format = 2
+layer_0/name = "Floors"
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 65537, 0, 2, 65537, 0, 3, 65537, 0, 4, 65537, 0, 5, 131073, 0, 131075, 0, 4, 131076, 65536, 4, 65539, 0, 4, 65540, 65536, 4)
+layer_1/name = "Walls"
+layer_1/tile_data = PackedInt32Array(0, 65538, 1, 65536, 65538, 3, 131072, 65538, 4, 1, 131074, 1, 65537, 393218, 6, 131073, 393218, 7, 2, 131074, 1, 65538, 131074, 3, 131074, 131074, 4, 3, 131074, 1, 65539, 851974, 4, 131075, 851974, 5, 4, 131074, 1, 65540, 917510, 4, 131076, 917510, 5, 5, 196610, 1, 65541, 196610, 3, 131077, 196610, 4)

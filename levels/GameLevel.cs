@@ -16,7 +16,7 @@ namespace Nexeh.levels
             AddChild(_gameMenu);
             _gameMenu.Hide();
 
-            var _hud = ResourceLoader.Load<PackedScene>("res://ui/hud.tscn").Instantiate<CanvasLayer>();
+            _hud = ResourceLoader.Load<PackedScene>("res://ui/hud.tscn").Instantiate<CanvasLayer>();
             AddChild(_hud);
 
             _player = ResourceLoader.Load<PackedScene>("res://entities/player/player.tscn").Instantiate<CharacterBody2D>();
@@ -42,9 +42,9 @@ namespace Nexeh.levels
 
         public override void _ExitTree()
         {
-            RemoveChild(_gameMenu);
-            RemoveChild(_player);
-            RemoveChild(_hud);
+            _gameMenu.QueueFree();
+            _player.QueueFree();
+            _hud.QueueFree();
 
             base._ExitTree();
         }
