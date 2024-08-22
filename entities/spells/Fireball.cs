@@ -6,7 +6,7 @@ public partial class Fireball : CharacterBody2D
 	private Vector2 _velocity;
 	private double _damage = 10.0f;
 
-	public readonly float Speed = 300.0f;
+	public readonly float Speed = 500.0f;
 
 	public override void _Ready()
 	{

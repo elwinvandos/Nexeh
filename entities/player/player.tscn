@@ -673,7 +673,7 @@ script = ExtResource("1_kild5")
 
 [node name="PlayerSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_euul7")
-animation = &"cast_spell_up"
+animation = &"cast_spell_down"
 script = ExtResource("3_xvbfc")
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Nexeh": {
+      "commandName": "Project"
+    },
+    "Nexeh_Custom": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\gamer\\OneDrive\\Bureaublad\\Godot_v4.2.2-stable_mono_win64\\Godot_v4.2.2-stable_mono_win64.exe",
+      "commandLineArgs": "--path.--verbose",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}

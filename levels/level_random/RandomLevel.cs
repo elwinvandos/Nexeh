@@ -1,4 +1,5 @@
 using Godot;
+using Nexeh.helpers;
 using Nexeh.levels;
 using System;
 
@@ -9,10 +10,11 @@ public partial class RandomLevel : GameLevel
 	private Vector2I _lastTilePosition = new Vector2I(0, 0);
 	private Vector2I _lastBorderPosition = new Vector2I(-25, -25);
 
+	private const int TILE_SIZE = 32;
 	// Formula: divide intended aspect ratio by tile size multiplied by camera zoom.
 	// Then multiply by how big you want to scale the level
-	private const int INITIAL_WIDTH = (1920 / 32 * 1) * 2;
-	private const int INITIAL_HEIGHT = (1080 / 32 * 1) * 2;
+	private const int INITIAL_WIDTH = (1920 / TILE_SIZE * 1) * 2;
+	private const int INITIAL_HEIGHT = (1080 / TILE_SIZE * 1) * 2;
 
 	private int _width = INITIAL_WIDTH;
 	private int _height = INITIAL_HEIGHT;
@@ -36,10 +38,11 @@ public partial class RandomLevel : GameLevel
 	{
 		_tileMap = GetNode<TileMap>("TileMap");
 
-		GenerateTerrain();
 		GenerateMap();
+		GeneratePath();
+        GenerateTerrain();
 
-		var cursor = ResourceLoader.Load("res://assets/UI/Cursor1.png");
+        var cursor = ResourceLoader.Load("res://assets/UI/Cursor1.png");
 		Input.SetCustomMouseCursor(cursor);
 
 		base._Ready();
@@ -57,11 +60,16 @@ public partial class RandomLevel : GameLevel
 		{
 			for (int y = terrainHeightOffset; y < terrainHeight; y++)
 			{
-				// Select random grass tile
-				var random = new Random();
-				var randomTile = new Vector2I(random.Next(0, 8), random.Next(0, 4));
+				var coords = new Vector2I(x, y);
 
-				_tileMap.SetCell(LAYER_TERRAIN, new Vector2I(x, y), TILESET_GRASS, randomTile);
+				// Check whether this tile was already used by a previous drawing method
+				if (_tileMap.GetCellSourceId(LAYER_TERRAIN, coords) == -1)
+				{
+                    // Select random grass tile
+                    var random = new Random();
+                    var randomTile = new Vector2I(random.Next(0, 8), random.Next(0, 4));
+                    _tileMap.SetCell(LAYER_TERRAIN, coords, TILESET_GRASS, randomTile);
+                }
 			}
 		}
 	}
@@ -83,12 +91,12 @@ public partial class RandomLevel : GameLevel
 						_lastBorderPosition = new Vector2I(x, y);
 					}
 
-					if((y - _lastBorderPosition.Y) >= 5)
+					if ((y - _lastBorderPosition.Y) >= 5)
 					{
 						PlaceForest(2, new Vector2I(x, y));
 						_lastBorderPosition = new Vector2I(x, y);
 					}
-	}
+				}
 
 				GeneratePropsAndBuildings(new Vector2I(x, y));
 			}
@@ -102,7 +110,7 @@ public partial class RandomLevel : GameLevel
 		if ((position.X - _lastTilePosition.X) >= minimumOffset.Value.X || (position.Y - _lastTilePosition.Y) >= minimumOffset.Value.Y)
 		{
 			var random = new Random();
-			var randomizer = random.Next(0, 300);
+			var randomizer = random.Next(0, 60);
 
 			if (randomizer < 30)
 			{
@@ -158,19 +166,42 @@ public partial class RandomLevel : GameLevel
 		}
 	}
 
+	private void GeneratePath()
+	{
+		var path = AStarAlgorithm.Compute((Vector2I)_startingPosition / TILE_SIZE, new Vector2I(110, 105), _tileMap);
+
+		var random = new Random();
+
+		while (path is not null)
+		{
+			_tileMap.SetCell(LAYER_TERRAIN, new Vector2I(path.X, path.Y), TILESET_GRASS, new Vector2I(random.Next(0, 2), random.Next(4, 7)));
+			path = path.Parent;
+		}
+	}
+
+	// Big problem with these methods: each scene also brings its own tilemap, which is bad
+	// We end up with multiple tilemaps spanning multiple objects
+	// This also breaks the path generation 
+	// I should probably do away with adding scenes like this as map components altogether
 	private void PlaceBuilding(int buildingId, Vector2I position)
 	{
 		var building = ResourceLoader.Load<PackedScene>($"res://levels/components/buildings/building_{buildingId}.tscn").Instantiate<Node2D>();
-		// We loop using Vector2I coordinates, but to add a scene we need a regular Vector2
-		building.Position = (Vector2)position * 32;
+		// We loop using Vector2I coordinates, but to add a scene we need a regular Vector2, so multiply back by tile size
+		building.Position = (Vector2)position * TILE_SIZE;
 		AddChild(building);
-	}
+
+		var buildingMap = building.GetNode<TileMap>("TileMap");
+		foreach(var test in buildingMap.GetUsedCells(LAYER_TERRAIN))
+		{
+			// copy tiles?
+		}
+    }
 
 	private void PlaceForest(int forestId, Vector2I position)
 	{
 		var forest = ResourceLoader.Load<PackedScene>($"res://levels/components/forests/forest_{forestId}.tscn").Instantiate<Node2D>();
-		// We loop using Vector2I coordinates, but to add a scene we need a regular Vector2
-		forest.Position = (Vector2)position * 32;
+		// We loop using Vector2I coordinates, but to add a scene we need a regular Vector2, so multiply back by tile size
+		forest.Position = (Vector2)position * TILE_SIZE;
 		AddChild(forest);
-	}
+    }
 }
