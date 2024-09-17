@@ -9,7 +9,7 @@ public partial class Level1 : GameLevel
 	private Marker2D _spawn1;
 	private Marker2D _spawn2;
 
-	public override Vector2 _startingPosition => new Vector2(200, 200);
+	public override Vector2 _startingPosition => new Vector2(200, 180);
 
 	public override void _Ready()
 	{

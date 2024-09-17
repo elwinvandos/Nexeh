@@ -26,7 +26,8 @@ public partial class MainMenu : CanvasLayer
 
 	private void StartGame(int level = 0)
 	{
-		if (level == 0) GetTree().ChangeSceneToFile("res://levels/level_random/random_level.tscn");
+        // Scene transition via SceneTree.change_scene? bad. Don't use it. Make a Level autoload that handles it.
+        if (level == 0) GetTree().ChangeSceneToFile("res://levels/level_random/random_level.tscn");
 		else GetTree().ChangeSceneToFile($"res://levels/level_{level}/level_{level}.tscn");
 	}
 
