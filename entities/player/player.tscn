@@ -375,9 +375,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tc15l")
 }],
-"loop": true,
+"loop": false,
 "name": &"cast_spell_down",
-"speed": 12.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -407,9 +407,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xl857")
 }],
-"loop": true,
+"loop": false,
 "name": &"cast_spell_left",
-"speed": 12.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -442,9 +442,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jm6a3")
 }],
-"loop": true,
+"loop": false,
 "name": &"cast_spell_right",
-"speed": 12.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -474,9 +474,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_glm73")
 }],
-"loop": true,
+"loop": false,
 "name": &"cast_spell_up",
-"speed": 12.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -673,7 +673,7 @@ script = ExtResource("1_kild5")
 
 [node name="PlayerSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_euul7")
-animation = &"cast_spell_down"
+animation = &"cast_spell_up"
 script = ExtResource("3_xvbfc")
 
 [node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="."]

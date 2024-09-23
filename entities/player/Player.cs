@@ -7,8 +7,13 @@ public partial class Player : LivingEntity
 	[Signal]
 	public delegate void PlayerPositionEventHandler(Vector2 position);
 
+	[Signal]
+	public delegate void PlayerHasCastSpellEventHandler();
+
 	private float _speed = 7.5f;
 	private Hud _hud;
+
+	public bool IsCasting = false;
 
 	public override int Health { get; set; } = 100;
 
@@ -72,11 +77,18 @@ public partial class Player : LivingEntity
 
 	private void Shoot()
 	{
-		var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Fireball>();
-		// Adds fireball as child of root (the level)
-		GetTree().Root.AddChild(fireBall);
-		var hand = GetNode<Marker2D>("Hand");
-		fireBall.Velocity = hand.GlobalTransform.Origin.DirectionTo(GetGlobalMousePosition()) * fireBall.Speed;
-		fireBall.Transform = hand.GlobalTransform;
+		if (!IsCasting)
+		{
+            IsCasting = true;
+
+			EmitSignal(SignalName.PlayerHasCastSpell);
+
+            var fireBall = ResourceLoader.Load<PackedScene>("res://entities/spells/fireball.tscn").Instantiate<Fireball>();
+            // Adds fireball as child of root (the level)
+            GetTree().Root.AddChild(fireBall);
+            var hand = GetNode<Marker2D>("Hand");
+            fireBall.Velocity = hand.GlobalTransform.Origin.DirectionTo(GetGlobalMousePosition()) * fireBall.Speed;
+            fireBall.Transform = hand.GlobalTransform;
+        }
 	}
 }
