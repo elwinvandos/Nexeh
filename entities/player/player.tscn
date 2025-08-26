@@ -1,9 +1,9 @@
 [gd_scene load_steps=92 format=3 uid="uid://cia2mjrl5d0jh"]
 
-[ext_resource type="Script" path="res://entities/player/Player.cs" id="1_kild5"]
+[ext_resource type="Script" uid="uid://7sgdjdlhio77" path="res://entities/player/Player.cs" id="1_kild5"]
 [ext_resource type="Texture2D" uid="uid://d1l1t7v7re5oc" path="res://assets/DummySpriteSheet.png" id="2_6hg26"]
-[ext_resource type="Script" path="res://entities/player/PlayerSprite2D.cs" id="3_xvbfc"]
-[ext_resource type="Script" path="res://entities/player/Hand.cs" id="4_0sdpo"]
+[ext_resource type="Script" uid="uid://b7qcahfouan70" path="res://entities/player/PlayerSprite2D.cs" id="3_xvbfc"]
+[ext_resource type="Script" uid="uid://diyx3acm3j5cu" path="res://entities/player/Hand.cs" id="4_0sdpo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fapd"]
 atlas = ExtResource("2_6hg26")

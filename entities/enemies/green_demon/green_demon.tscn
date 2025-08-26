@@ -1,8 +1,8 @@
 [gd_scene load_steps=48 format=3 uid="uid://cxk2btkd1sarp"]
 
 [ext_resource type="Texture2D" uid="uid://dfeoui1rt8j6d" path="res://assets/NPCs/green_demon.png" id="1_dlqie"]
-[ext_resource type="Script" path="res://entities/enemies/green_demon/GreenDemon.cs" id="1_ehpix"]
-[ext_resource type="Script" path="res://entities/enemies/green_demon/GreenDemonSprite2D.cs" id="3_22y5j"]
+[ext_resource type="Script" uid="uid://dpcjtivstcgl8" path="res://entities/enemies/green_demon/GreenDemon.cs" id="1_ehpix"]
+[ext_resource type="Script" uid="uid://ds32bk7xhhv07" path="res://entities/enemies/green_demon/GreenDemonSprite2D.cs" id="3_22y5j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bmwbl"]
 atlas = ExtResource("1_dlqie")
