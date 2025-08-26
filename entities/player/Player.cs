@@ -10,14 +10,15 @@ public partial class Player : LivingEntity
 	[Signal]
 	public delegate void PlayerHasCastSpellEventHandler();
 
-	private float _speed = 7.5f;
-	private Hud _hud;
-
 	public bool IsCasting = false;
 
 	public override int Health { get; set; } = 100;
+	public override int MaxHealth { get; set; } = 100;
 
-	public override void _Ready()
+	private float _speed = 7.5f;
+    private Hud _hud;
+
+    public override void _Ready()
 	{
 		// Necessary so other scenes can find player
 		AddToGroup("Player");
@@ -75,7 +76,13 @@ public partial class Player : LivingEntity
 		_hud.UpdatePlayerHealth(Health);
 	}
 
-	private void Shoot()
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+		_hud.UpdatePlayerHealth(Health);
+    }
+
+    private void Shoot()
 	{
 		if (!IsCasting)
 		{

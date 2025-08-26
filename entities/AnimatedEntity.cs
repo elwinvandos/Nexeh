@@ -23,7 +23,7 @@ namespace GungeonClone.entities
 
 		public override void _Process(double delta)
 		{
-			_entity.DamageTaken += (oldValue, newValue) =>
+			_entity.HealthChanged += (oldValue, newValue) =>
 			{
 				// make sprite flash white
 				var tween = CreateTween();
