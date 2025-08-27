@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://2hjag4arurnh"]
 
-[ext_resource type="Script" uid="uid://co6lblb147dvx" path="res://entities/items/potions/HealthPotion.cs" id="1_w54f7"]
+[ext_resource type="Script" uid="uid://co6lblb147dvx" path="res://entities/items/pickups/HealthPickup.cs" id="1_w54f7"]
 [ext_resource type="Texture2D" uid="uid://cmkkb1mwywhi3" path="res://assets/Items/Potions/Icon1.png" id="2_21pk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21pk0"]
@@ -11,7 +11,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HealthPotionSprite2D:offset")
+tracks/0/path = NodePath("HealthPickupSprite2D:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,7 +27,7 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HealthPotionSprite2D:offset")
+tracks/0/path = NodePath("HealthPickupSprite2D:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -43,11 +43,11 @@ _data = {
 &"float": SubResource("Animation_w54f7")
 }
 
-[node name="HealthPotion" type="CharacterBody2D"]
+[node name="HealthPickup" type="CharacterBody2D"]
 collision_layer = 16
 script = ExtResource("1_w54f7")
 
-[node name="HealthPotionCollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HealthPickupCollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_21pk0")
 
@@ -56,5 +56,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_g3nfk")
 }
 
-[node name="HealthPotionSprite2D" type="Sprite2D" parent="."]
+[node name="HealthPickupSprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_21pk0")

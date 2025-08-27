@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class HealthPotion : CharacterBody2D
+public partial class HealthPickup : CharacterBody2D
 {
     [Export]
     public int HealAmount { get; set; } = 20;

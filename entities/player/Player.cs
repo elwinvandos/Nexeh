@@ -1,5 +1,7 @@
 using Godot;
 using Nexeh.entities;
+using Nexeh.entities.items.inventory;
+using System.Diagnostics;
 using System.Linq;
 
 public partial class Player : LivingEntity
@@ -67,7 +69,13 @@ public partial class Player : LivingEntity
 			Shoot();
 		}
 
-		base._Process(delta);
+        if (Input.IsActionJustPressed("use_item"))
+        {
+			// todo: item selector functioniality
+            UseItem(Inventory.FirstOrDefault());
+        }
+
+        base._Process(delta);
 	}
 
 	public override void TakeDamage(int amount)
@@ -80,6 +88,29 @@ public partial class Player : LivingEntity
     {
         base.Heal(amount);
 		_hud.UpdatePlayerHealth(Health);
+    }
+
+	public override void AddToInventory(InventoryItem item)
+	{
+		if (Inventory.Any(item => item.ItemType == item.ItemType))
+		{
+			_hud.UpdateItemQuantityInInventory(item, 1);
+		}
+		else
+		{
+            _hud.AddNewItemToInventory(item);
+        }
+		base.AddToInventory(item);
+    }
+
+	public override void UseItem(InventoryItem item)
+	{
+        if (Inventory.Any(item => item.ItemType == item.ItemType))
+        {
+            base.UseItem(item);
+            _hud.UpdateItemQuantityInInventory(item, -1);
+        }
+		// error sound?
     }
 
     private void Shoot()

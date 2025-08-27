@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2s2qcpyp0w3y"]
+
+[ext_resource type="Texture2D" uid="uid://c25y4eqbubq8n" path="res://assets/Items/Potions/Icon33.png" id="1_1qwnk"]
+[ext_resource type="Script" uid="uid://dnxlu10vdr57x" path="res://entities/items/pickups/HealthPotionPickup.cs" id="1_gv2uq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gv2uq"]
+size = Vector2(20, 27)
+
+[sub_resource type="Animation" id="Animation_gv2uq"]
+resource_name = "float"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthPickupSprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.933333, 1.46667, 2, 2.53333, 2.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, 4), Vector2(0, 6), Vector2(0, 4), Vector2(0, 2), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hhrs5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthPickupSprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hhrs5"]
+_data = {
+&"RESET": SubResource("Animation_hhrs5"),
+&"float": SubResource("Animation_gv2uq")
+}
+
+[node name="HealthPotionPickup" type="CharacterBody2D"]
+collision_layer = 16
+script = ExtResource("1_gv2uq")
+
+[node name="HealthPickupSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1qwnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_gv2uq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hhrs5")
+}

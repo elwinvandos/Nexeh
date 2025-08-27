@@ -1,4 +1,6 @@
 ﻿using Godot;
+using Nexeh.entities.items.inventory;
+using System.Collections.Generic;
 
 namespace Nexeh.entities
 {
@@ -9,6 +11,7 @@ namespace Nexeh.entities
 
         public abstract int Health { get; set; }
         public abstract int MaxHealth { get; set; }
+        public virtual List<InventoryItem> Inventory { get; set; } = [];
 
         public virtual void TakeDamage(int amount)
         {
@@ -29,6 +32,20 @@ namespace Nexeh.entities
             }
 
             EmitSignal(SignalName.HealthChanged, oldHealth, Health);
+        }
+
+        public virtual void AddToInventory(InventoryItem item)
+        {
+            Inventory.Add(item);
+        }
+
+        public virtual void UseItem(InventoryItem item)
+        {
+            if (Inventory.Contains(item))
+            {
+                item.UseItem(this);
+                Inventory.Remove(item);
+            }
         }
     }
 }
